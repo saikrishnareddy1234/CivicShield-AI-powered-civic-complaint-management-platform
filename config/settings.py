@@ -26,6 +26,9 @@ SECRET_KEY = "django-insecure-w!0w5ab2ik^hg0ul!*#_8^%wtlstr9489=ffy*sobu+c(s)9qt
 DEBUG = True
 
 ALLOWED_HOSTS = ['.onrender.com','127.0.0.1']
+CSRF_TRUSTED_ORIGINS = [
+    "https://civicshield-ai-powered-civic-complaint.onrender.com",
+]
 
 
 # Application definition
