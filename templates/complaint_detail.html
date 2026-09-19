@@ -1,0 +1,404 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Complaint Details | CivicShield
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="detail-page">
+
+    <!-- HEADER -->
+
+    <header class="detail-header">
+
+        <div>
+
+            <span class="dashboard-label">
+                CIVICSHIELD / AUTHORITY
+            </span>
+
+            <h1>
+                Complaint Details
+            </h1>
+
+        </div>
+
+        <a
+            href="{% url 'authority_dashboard' %}"
+            class="back-dashboard"
+        >
+            ← Dashboard
+        </a>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <div class="detail-grid">
+
+        <!-- LEFT -->
+
+        <section class="detail-main">
+
+            <div class="detail-card">
+
+                <div class="detail-card-header">
+
+                    <div>
+
+                        <span>
+                            COMPLAINT ID
+                        </span>
+
+                        <h2>
+                            {{ complaint.complaint_id }}
+                        </h2>
+
+                    </div>
+
+                    <span
+                        class="priority-badge
+                        priority-{{ complaint.priority }}"
+                    >
+                        {{ complaint.get_priority_display }}
+                    </span>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="detail-block">
+
+                    <span>
+                        CITIZEN DESCRIPTION
+                    </span>
+
+                    <p>
+                        {{ complaint.description }}
+                    </p>
+
+                </div>
+
+
+                <!-- IMAGE -->
+
+                {% if complaint.image %}
+
+                <div class="detail-block">
+
+                    <span>
+                        ATTACHED EVIDENCE
+                    </span>
+
+                    <img
+                        src="{{ complaint.image.url }}"
+                        class="complaint-image"
+                        alt="Complaint evidence"
+                    >
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- AI ANALYSIS -->
+
+            <div class="detail-card ai-detail-card">
+
+                <div class="ai-header">
+                    🤖 AI CIVIC ANALYSIS
+                </div>
+
+
+                <div class="ai-detail-grid">
+
+                    <div>
+
+                        <span>
+                            CATEGORY
+                        </span>
+
+                        <strong>
+                            {{ complaint.get_category_display }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            PRIORITY
+                        </span>
+
+                        <strong>
+                            {{ complaint.get_priority_display }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            DEPARTMENT
+                        </span>
+
+                        <strong>
+                            {{ complaint.department }}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            SEVERITY SCORE
+                        </span>
+
+                        <strong>
+                            {{ complaint.severity_score }}/100
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                {% if complaint.severity_reason %}
+
+                <div class="detail-reason">
+
+                    <span>
+                        SEVERITY ANALYSIS
+                    </span>
+
+                    <p>
+                        {{ complaint.severity_reason }}
+                    </p>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+        {% if complaint.incident %}
+
+<div class="detail-card incident-card">
+
+    <div class="incident-header">
+
+        <div>
+
+            <span class="sidebar-label">
+                CIVIC INCIDENT
+            </span>
+
+            <h2>
+                {{ complaint.incident.title }}
+            </h2>
+
+        </div>
+
+        <span class="incident-badge">
+            AI CLUSTER
+        </span>
+
+    </div>
+
+    <div class="incident-info-grid">
+
+        <div>
+            <span>INCIDENT ID</span>
+
+            <strong>
+                {{ complaint.incident.incident_id }}
+            </strong>
+        </div>
+
+        <div>
+            <span>RELATED REPORTS</span>
+
+            <strong>
+                {{ complaint.incident.complaints.count }}
+            </strong>
+        </div>
+
+        <div>
+            <span>CATEGORY</span>
+
+            <strong>
+                {{ complaint.incident.category|title }}
+            </strong>
+        </div>
+
+        <div>
+            <span>DEPARTMENT</span>
+
+            <strong>
+                {{ complaint.incident.department }}
+            </strong>
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+        </section>
+
+
+        <!-- RIGHT -->
+
+        <aside class="detail-sidebar">
+
+            <!-- STATUS -->
+
+            <div class="detail-card">
+
+                <span class="sidebar-label">
+                    CURRENT STATUS
+                </span>
+
+                <div
+                    class="large-status
+                    status-{{ complaint.status }}"
+                >
+                    {{ complaint.get_status_display }}
+                </div>
+
+            </div>
+
+
+            <!-- DEPARTMENT -->
+
+            <div class="detail-card">
+
+                <span class="sidebar-label">
+                    ASSIGNED DEPARTMENT
+                </span>
+
+                <h3>
+                    {{ complaint.department }}
+                </h3>
+
+            </div>
+
+
+            <!-- LOCATION -->
+
+            <div class="detail-card">
+
+                <span class="sidebar-label">
+                    LOCATION
+                </span>
+
+                {% if complaint.latitude and complaint.longitude %}
+
+                <p>
+                    {{ complaint.latitude }},
+                    {{ complaint.longitude }}
+                </p>
+
+                {% else %}
+
+                <p>
+                    Location not available
+                </p>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- ACTION -->
+
+            <div class="detail-card">
+
+                <span class="sidebar-label">
+                    AUTHORITY ACTION
+                </span>
+
+                <div class="status-actions">
+
+    <span class="sidebar-label">
+        UPDATE STATUS
+    </span>
+
+    <form
+        method="POST"
+        action="{% url 'update_complaint_status' complaint.complaint_id %}"
+    >
+
+        {% csrf_token %}
+
+        <button
+            type="submit"
+            name="status"
+            value="pending"
+            class="status-action pending-action"
+            {% if complaint.status == "pending" %}disabled{% endif %}
+        >
+            ⏳ Pending
+        </button>
+
+
+        <button
+            type="submit"
+            name="status"
+            value="in_progress"
+            class="status-action progress-action"
+            {% if complaint.status == "in_progress" %}disabled{% endif %}
+        >
+            🔄 In Progress
+        </button>
+
+
+        <button
+            type="submit"
+            name="status"
+            value="resolved"
+            class="status-action resolved-action"
+            {% if complaint.status == "resolved" %}disabled{% endif %}
+        >
+            ✓ Resolved
+        </button>
+
+    </form>
+
+</div>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

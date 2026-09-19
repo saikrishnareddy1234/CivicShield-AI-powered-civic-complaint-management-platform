@@ -1,0 +1,928 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="CivicShield - AI-powered civic complaint reporting, location intelligence and smart civic incident management."
+    >
+
+    <title>CivicShield | Smart Civic Reporting</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVIGATION
+====================================================== -->
+
+<header class="navbar">
+
+    <div class="logo">
+
+        <span class="logo-icon">
+            🛡️
+        </span>
+
+        <span>
+            CivicShield
+        </span>
+
+    </div>
+
+
+    <nav class="main-navigation">
+
+        <a href="{% url 'home' %}">
+            Home
+        </a>
+
+        <a href="#how-it-works">
+            How It Works
+        </a>
+
+        <a href="#ai-intelligence">
+            AI Intelligence
+        </a>
+
+        <a href="{% url 'city_map' %}">
+            🗺️ Map
+        </a>
+
+        <a href="{% url 'track_complaint' %}">
+            🔍 Track
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+    </nav>
+
+
+    <a
+        href="{% url 'report_complaint' %}"
+        class="nav-button"
+    >
+        🚨 Report Issue
+    </a>
+
+</header>
+
+
+
+<!-- =====================================================
+     HERO SECTION
+====================================================== -->
+
+<section
+    class="hero"
+    id="home"
+>
+
+    <div class="hero-content">
+
+
+        <div class="badge">
+
+            🚀 AI-Powered Civic Intelligence
+
+        </div>
+
+
+        <h1>
+
+            Make Your City
+
+            <span>
+                Better.
+            </span>
+
+            One Report at a Time.
+
+        </h1>
+
+
+        <p>
+
+            Report civic problems instantly.
+            CivicShield uses AI, smart location detection
+            and intelligent routing to connect problems
+            with the right department.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+
+            <a
+                href="{% url 'report_complaint' %}"
+                class="primary-button"
+            >
+
+                🚨 Report a Problem
+
+            </a>
+
+
+            <a
+                href="#how-it-works"
+                class="secondary-button"
+            >
+
+                See How It Works →
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         HERO DASHBOARD
+    ================================================== -->
+
+    <div class="hero-dashboard">
+
+
+        <div class="dashboard-header">
+
+
+            <div>
+
+                <small>
+                    LIVE CITY STATUS
+                </small>
+
+                <h3>
+                    Civic Overview
+                </h3>
+
+            </div>
+
+
+            <span class="live">
+
+                ● LIVE
+
+            </span>
+
+        </div>
+
+
+
+        <div class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <span>
+                    📋
+                </span>
+
+                <h2>
+                    1,248
+                </h2>
+
+                <p>
+                    Total Reports
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    ✅
+                </span>
+
+                <h2>
+                    932
+                </h2>
+
+                <p>
+                    Resolved
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    ⚠️
+                </span>
+
+                <h2>
+                    74
+                </h2>
+
+                <p>
+                    Active Issues
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span>
+                    📍
+                </span>
+
+                <h2>
+                    18
+                </h2>
+
+                <p>
+                    Areas Covered
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="issue-list">
+
+
+            <div class="issue">
+
+                <span class="issue-icon red">
+                    🗑️
+                </span>
+
+
+                <div>
+
+                    <strong>
+                        Garbage Overflow
+                    </strong>
+
+                    <small>
+                        Sector 12 · 5 min ago
+                    </small>
+
+                </div>
+
+
+                <span class="status high">
+                    HIGH
+                </span>
+
+            </div>
+
+
+
+            <div class="issue">
+
+                <span class="issue-icon orange">
+                    💡
+                </span>
+
+
+                <div>
+
+                    <strong>
+                        Street Light
+                    </strong>
+
+                    <small>
+                        Park Avenue · 12 min ago
+                    </small>
+
+                </div>
+
+
+                <span class="status medium">
+                    MEDIUM
+                </span>
+
+            </div>
+
+
+
+            <div class="issue">
+
+                <span class="issue-icon green">
+                    🚧
+                </span>
+
+
+                <div>
+
+                    <strong>
+                        Road Damage
+                    </strong>
+
+                    <small>
+                        Main Road · 25 min ago
+                    </small>
+
+                </div>
+
+
+                <span class="status resolved">
+                    RESOLVED
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     HOW IT WORKS
+====================================================== -->
+
+<section
+    class="how-it-works"
+    id="how-it-works"
+>
+
+
+    <div class="section-heading">
+
+        <span>
+            HOW CIVICSHIELD WORKS
+        </span>
+
+
+        <h2>
+
+            From Problem to
+
+            <strong>
+                Resolution.
+            </strong>
+
+        </h2>
+
+
+        <p>
+
+            A simple reporting process powered by
+            intelligent automation.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="steps">
+
+
+        <div class="step">
+
+            <div class="step-number">
+                01
+            </div>
+
+            <div class="step-icon">
+                📸
+            </div>
+
+            <h3>
+                Report
+            </h3>
+
+            <p>
+                Upload a photo and describe the civic problem.
+            </p>
+
+        </div>
+
+
+
+        <div class="step">
+
+            <div class="step-number">
+                02
+            </div>
+
+            <div class="step-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Detects
+            </h3>
+
+            <p>
+                AI identifies the problem and determines
+                its category.
+            </p>
+
+        </div>
+
+
+
+        <div class="step">
+
+            <div class="step-number">
+                03
+            </div>
+
+            <div class="step-icon">
+                📍
+            </div>
+
+            <h3>
+                Locate
+            </h3>
+
+            <p>
+                Your location is automatically identified
+                and mapped.
+            </p>
+
+        </div>
+
+
+
+        <div class="step">
+
+            <div class="step-number">
+                04
+            </div>
+
+            <div class="step-icon">
+                🏢
+            </div>
+
+            <h3>
+                Assign
+            </h3>
+
+            <p>
+                The complaint is routed to the correct
+                department.
+            </p>
+
+        </div>
+
+
+
+        <div class="step">
+
+            <div class="step-number">
+                05
+            </div>
+
+            <div class="step-icon">
+                ✅
+            </div>
+
+            <h3>
+                Resolve
+            </h3>
+
+            <p>
+                Authorities resolve the issue and update
+                its status.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     AI INTELLIGENCE
+====================================================== -->
+
+<section
+    class="ai-intelligence"
+    id="ai-intelligence"
+>
+
+
+    <div class="section-heading">
+
+        <span>
+            POWERED BY AI
+        </span>
+
+
+        <h2>
+
+            Intelligence behind
+
+            <strong>
+                every complaint.
+            </strong>
+
+        </h2>
+
+
+        <p>
+
+            CivicShield doesn't just collect complaints.
+            It understands, prioritizes and connects them
+            to the right civic response.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="ai-feature-grid">
+
+
+        <div class="ai-feature-card">
+
+            <div class="ai-feature-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Classification
+            </h3>
+
+            <p>
+
+                Automatically identifies the civic issue,
+                category and responsible department from
+                the citizen's complaint.
+
+            </p>
+
+            <span class="feature-tag">
+                Smart Analysis
+            </span>
+
+        </div>
+
+
+
+        <div class="ai-feature-card">
+
+            <div class="ai-feature-icon">
+                📸
+            </div>
+
+            <h3>
+                Vision Intelligence
+            </h3>
+
+            <p>
+
+                Uploaded evidence can be analyzed by AI
+                to understand visible civic problems and
+                improve complaint assessment.
+
+            </p>
+
+            <span class="feature-tag">
+                AI Vision
+            </span>
+
+        </div>
+
+
+
+        <div class="ai-feature-card">
+
+            <div class="ai-feature-icon">
+                🔗
+            </div>
+
+            <h3>
+                Duplicate Detection
+            </h3>
+
+            <p>
+
+                Similar citizen reports can be identified
+                and connected to the same civic issue,
+                reducing repeated work.
+
+            </p>
+
+            <span class="feature-tag">
+                Incident Intelligence
+            </span>
+
+        </div>
+
+
+
+        <div class="ai-feature-card">
+
+            <div class="ai-feature-icon">
+                📊
+            </div>
+
+            <h3>
+                Priority Intelligence
+            </h3>
+
+            <p>
+
+                Complaints can be prioritized according
+                to severity and civic impact so authorities
+                can focus on urgent problems first.
+
+            </p>
+
+            <span class="feature-tag">
+                Smart Priority
+            </span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     IMPACT
+====================================================== -->
+
+<section
+    class="impact"
+    id="impact"
+>
+
+
+    <div class="impact-content">
+
+        <span>
+            OUR IMPACT
+        </span>
+
+
+        <h2>
+
+            Building smarter,
+
+            <strong>
+                cleaner cities.
+            </strong>
+
+        </h2>
+
+
+        <p>
+
+            CivicShield brings citizens and civic authorities
+            together through technology, transparency and
+            intelligent automation.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="impact-stats">
+
+
+        <div>
+
+            <h2>
+                1,248+
+            </h2>
+
+            <p>
+                Issues Reported
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h2>
+                932+
+            </h2>
+
+            <p>
+                Problems Resolved
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h2>
+                74%
+            </h2>
+
+            <p>
+                Resolution Rate
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h2>
+                18
+            </h2>
+
+            <p>
+                Areas Covered
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ABOUT
+====================================================== -->
+
+<section
+    class="about"
+    id="about"
+>
+
+
+    <div>
+
+        <span>
+            WHY CIVICSHIELD?
+        </span>
+
+
+        <h2>
+
+            Technology that turns
+
+            <strong>
+                complaints into action.
+            </strong>
+
+        </h2>
+
+    </div>
+
+
+
+    <div class="about-text">
+
+
+        <p>
+
+            Traditional civic complaint systems can be slow,
+            fragmented and difficult to track.
+
+        </p>
+
+
+        <p>
+
+            CivicShield combines AI, location intelligence
+            and automation to make civic issue reporting
+            faster, smarter and more transparent.
+
+        </p>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA
+====================================================== -->
+
+<section class="cta">
+
+
+    <h2>
+
+        See a problem?
+
+        <strong>
+            Report it.
+        </strong>
+
+    </h2>
+
+
+    <p>
+
+        Your report could help make your neighborhood better.
+
+    </p>
+
+
+    <a
+        href="{% url 'report_complaint' %}"
+        class="primary-button"
+    >
+
+        🚨 Report a Civic Issue
+
+    </a>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+
+    <div class="footer-logo">
+
+        🛡️ CivicShield
+
+    </div>
+
+
+    <p>
+
+        From Citizen Complaint to Civic Action.
+
+    </p>
+
+
+    <div class="footer-links">
+
+        <a href="{% url 'home' %}">
+            Home
+        </a>
+
+        <a href="{% url 'city_map' %}">
+            Map
+        </a>
+
+        <a href="{% url 'track_complaint' %}">
+            Track Complaint
+        </a>
+
+        <a href="{% url 'report_complaint' %}">
+            Report Issue
+        </a>
+
+    </div>
+
+
+    <span>
+
+        © 2026 CivicShield. Hackathon Prototype.
+
+    </span>
+
+</footer>
+
+
+
+<script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,612 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        CivicShield Authority Dashboard
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="authority-page">
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="authority-header">
+
+        <div>
+
+            <span class="dashboard-label">
+                CIVICSHIELD
+            </span>
+
+            <h1>
+                Authority Dashboard
+            </h1>
+
+            <p>
+                AI-powered civic complaint management
+            </p>
+
+        </div>
+
+
+        <div class="authority-status">
+
+            <span class="status-dot"></span>
+
+            System Online
+
+        </div>
+
+
+        <a
+            href="{% url 'authority_logout' %}"
+            class="back-dashboard"
+        >
+            Logout
+        </a>
+
+    </header>
+
+
+    <!-- =========================================
+         STATISTICS
+    ========================================== -->
+
+    <section class="dashboard-stats">
+
+        <div class="stat-card">
+
+            <span>
+                TOTAL COMPLAINTS
+            </span>
+
+            <strong>
+                {{ total_complaints }}
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card pending">
+
+            <span>
+                PENDING
+            </span>
+
+            <strong>
+                {{ pending_count }}
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card progress">
+
+            <span>
+                IN PROGRESS
+            </span>
+
+            <strong>
+                {{ in_progress_count }}
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card resolved">
+
+            <span>
+                RESOLVED
+            </span>
+
+            <strong>
+                {{ resolved_count }}
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card critical">
+
+            <span>
+                CRITICAL
+            </span>
+
+            <strong>
+                {{ critical_count }}
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card high">
+
+            <span>
+                HIGH PRIORITY
+            </span>
+
+            <strong>
+                {{ high_count }}
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         ANALYTICS
+    ========================================== -->
+
+    <section class="analytics-section">
+
+        <div class="section-header">
+
+            <div>
+
+                <span>
+                    CIVIC INTELLIGENCE
+                </span>
+
+                <h2>
+                    Analytics Overview
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="analytics-grid">
+
+
+            <!-- CATEGORY -->
+
+            <div class="analytics-card">
+
+                <span class="analytics-title">
+                    COMPLAINTS BY CATEGORY
+                </span>
+
+
+                {% for item in category_stats %}
+
+                <div class="analytics-row">
+
+                    <span>
+                        {{ item.category|title }}
+                    </span>
+
+                    <strong>
+                        {{ item.total }}
+                    </strong>
+
+                </div>
+
+                {% empty %}
+
+                <p class="analytics-empty">
+                    No data available.
+                </p>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- PRIORITY -->
+
+            <div class="analytics-card">
+
+                <span class="analytics-title">
+                    PRIORITY DISTRIBUTION
+                </span>
+
+
+                {% for item in priority_stats %}
+
+                <div class="analytics-row">
+
+                    <span>
+                        {{ item.priority|title }}
+                    </span>
+
+                    <strong>
+                        {{ item.total }}
+                    </strong>
+
+                </div>
+
+                {% empty %}
+
+                <p class="analytics-empty">
+                    No data available.
+                </p>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- DEPARTMENT -->
+
+            <div class="analytics-card">
+
+                <span class="analytics-title">
+                    DEPARTMENT WORKLOAD
+                </span>
+
+
+                {% for item in department_stats %}
+
+                <div class="analytics-row">
+
+                    <span>
+                        {{ item.department }}
+                    </span>
+
+                    <strong>
+                        {{ item.total }}
+                    </strong>
+
+                </div>
+
+                {% empty %}
+
+                <p class="analytics-empty">
+                    No data available.
+                </p>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="analytics-card">
+
+                <span class="analytics-title">
+                    RESOLUTION STATUS
+                </span>
+
+
+                {% for item in status_stats %}
+
+                <div class="analytics-row">
+
+                    <span>
+                        {{ item.status|title }}
+                    </span>
+
+                    <strong>
+                        {{ item.total }}
+                    </strong>
+
+                </div>
+
+                {% empty %}
+
+                <p class="analytics-empty">
+                    No data available.
+                </p>
+
+                {% endfor %}
+
+
+                <div class="resolution-rate">
+
+                    <span>
+                        RESOLUTION RATE
+                    </span>
+
+                    <strong>
+                        {{ resolution_rate }}%
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         CIVIC INCIDENT QUEUE
+    ========================================== -->
+
+    <section class="complaints-section">
+
+
+        <!-- SECTION HEADER -->
+
+        <div class="section-header">
+
+            <div>
+
+                <span>
+                    AI PRIORITIZED QUEUE
+                </span>
+
+                <h2>
+                    Civic Incidents
+                </h2>
+
+                <p>
+                    Duplicate and related citizen reports
+                    are grouped into one actionable incident.
+                </p>
+
+            </div>
+
+
+            <!-- DEPARTMENT FILTER -->
+
+            <form
+                method="GET"
+                class="department-filter"
+            >
+
+                <label for="department">
+                    DEPARTMENT
+                </label>
+
+
+                <select
+                    name="department"
+                    id="department"
+                    onchange="this.form.submit()"
+                >
+
+                    <option value="">
+                        All Departments
+                    </option>
+
+
+                    {% for department in departments %}
+
+                    <option
+                        value="{{ department }}"
+                        {% if selected_department == department %}
+                            selected
+                        {% endif %}
+                    >
+
+                        {{ department }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </form>
+
+        </div>
+
+
+        <!-- =========================================
+             CIVIC INCIDENT TABLE
+        ========================================== -->
+
+        {% if active_incidents %}
+
+        <div class="complaints-table">
+
+
+            <!-- TABLE HEADER -->
+
+            <div class="table-header">
+
+                <span>
+                    CIVIC INCIDENT
+                </span>
+
+                <span>
+                    CATEGORY
+                </span>
+
+                <span>
+                    PRIORITY
+                </span>
+
+                <span>
+                    DEPARTMENT
+                </span>
+
+                <span>
+                    STATUS
+                </span>
+
+                <span>
+                    REPORTS
+                </span>
+
+            </div>
+
+
+            <!-- =====================================
+                 INCIDENT LOOP
+
+                 IMPORTANT:
+                 One CivicIncident = one row.
+
+                 Multiple complaints belonging to
+                 that incident are NOT repeated.
+            ====================================== -->
+
+            {% for incident in active_incidents %}
+
+            <div class="complaint-row">
+
+
+                <!-- CIVIC INCIDENT -->
+
+                <div>
+
+                    {% with first_complaint=incident.complaints.first %}
+
+                    {% if first_complaint %}
+
+                    <a
+                        href="{% url 'complaint_detail' first_complaint.complaint_id %}"
+                        class="complaint-link"
+                    >
+
+                        🚨 {{ incident.title }}
+
+                    </a>
+
+                    {% else %}
+
+                    <span class="complaint-link">
+
+                        🚨 {{ incident.title }}
+
+                    </span>
+
+                    {% endif %}
+
+                    {% endwith %}
+
+
+                    <p class="incident-reference">
+
+                        {{ incident.report_count }}
+
+                        citizen report{{ incident.report_count|pluralize }}
+
+                        grouped into this incident
+
+                    </p>
+
+                </div>
+
+
+                <!-- CATEGORY -->
+
+                <div>
+
+                    {{ incident.category|title }}
+
+                </div>
+
+
+                <!-- PRIORITY -->
+
+                <div>
+
+                    <span
+                        class="priority-badge
+                        priority-{{ incident.priority }}"
+                    >
+
+                        {{ incident.priority|title }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- DEPARTMENT -->
+
+                <div>
+
+                    {{ incident.department }}
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div>
+
+                    <span
+                        class="status-badge
+                        status-{{ incident.status }}"
+                    >
+
+                        {{ incident.status|title }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- REPORT COUNT -->
+
+                <div>
+
+                    <strong>
+
+                        {{ incident.report_count }}
+
+                    </strong>
+
+                    <small>
+
+                        report{{ incident.report_count|pluralize }}
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =========================================
+             EMPTY STATE
+        ========================================== -->
+
+        <div class="empty-state">
+
+            <h3>
+                No civic incidents yet
+            </h3>
+
+            <p>
+                New citizen complaints will create
+                civic incidents here.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+</body>
+
+</html>

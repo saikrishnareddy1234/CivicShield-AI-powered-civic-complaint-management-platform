@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CivicShield Authority Login</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="authority-login-page">
+
+    <div class="login-card">
+
+        <div class="login-icon">
+            🛡️
+        </div>
+
+        <span class="dashboard-label">
+            CIVICSHIELD
+        </span>
+
+        <h1>
+            Authority Login
+        </h1>
+
+        <p>
+            Sign in to manage civic complaints.
+        </p>
+
+
+        {% if error %}
+
+        <div class="login-error">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="login-field">
+
+                <label>
+                    USERNAME
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Enter username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="login-field">
+
+                <label>
+                    PASSWORD
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="login-button"
+            >
+                Sign In →
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

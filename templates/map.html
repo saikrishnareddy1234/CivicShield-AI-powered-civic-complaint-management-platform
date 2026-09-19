@@ -1,0 +1,131 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CivicShield | City Map</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+    <!-- Leaflet -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        <span class="logo-icon">🛡️</span>
+        CivicShield
+    </div>
+
+    <nav>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/report/">
+            Report Issue
+        </a>
+
+        <a href="/map/">
+            City Map
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="map-page">
+
+    <div class="map-header">
+
+        <div>
+
+            <span>
+                CIVIC INTELLIGENCE
+            </span>
+
+            <h1>
+                City Problem Map
+            </h1>
+
+            <p>
+                Explore reported civic issues across the city.
+            </p>
+
+        </div>
+
+
+        <div class="map-stats">
+
+            <div>
+                <strong id="total-count">
+                    0
+                </strong>
+
+                <small>
+                    Total
+                </small>
+            </div>
+
+            <div>
+                <strong id="high-count">
+                    0
+                </strong>
+
+                <small>
+                    High Priority
+                </small>
+            </div>
+
+            <div>
+                <strong id="resolved-count">
+                    0
+                </strong>
+
+                <small>
+                    Resolved
+                </small>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="map-container">
+
+        <div id="civic-map"></div>
+
+    </div>
+
+</main>
+
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+<script
+    src="{% static 'js/map.js' %}">
+</script>
+
+</body>
+
+</html>

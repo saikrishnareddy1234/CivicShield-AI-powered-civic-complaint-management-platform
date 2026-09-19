@@ -1,0 +1,363 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Track Complaint | CivicShield
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="tracking-page">
+
+    <!-- HEADER -->
+
+    <div class="tracking-header">
+
+        <span class="dashboard-label">
+            CIVICSHIELD
+        </span>
+
+        <h1>
+            Track Your Complaint
+        </h1>
+
+        <p>
+            Enter your Complaint ID to view its current status.
+        </p>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="tracking-search">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <input
+                type="text"
+                name="complaint_id"
+                placeholder="Enter Complaint ID"
+                required
+            >
+
+            <button type="submit">
+                Track Complaint →
+            </button>
+
+        </form>
+
+    </div>
+
+
+    {% if error %}
+
+    <div class="tracking-error">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+
+    {% if complaint %}
+
+    <!-- RESULT -->
+
+    <div class="tracking-result">
+
+        <!-- BASIC INFORMATION -->
+
+        <div class="tracking-card">
+
+            <div class="tracking-card-header">
+
+                <div>
+
+                    <span>
+                        COMPLAINT ID
+                    </span>
+
+                    <h2>
+                        {{ complaint.complaint_id }}
+                    </h2>
+
+                </div>
+
+                <span
+                    class="priority-badge
+                    priority-{{ complaint.priority }}"
+                >
+                    {{ complaint.get_priority_display }}
+                </span>
+
+            </div>
+
+
+            <div class="tracking-info-grid">
+
+                <div>
+
+                    <span>
+                        CATEGORY
+                    </span>
+
+                    <strong>
+                        {{ complaint.get_category_display }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        DEPARTMENT
+                    </span>
+
+                    <strong>
+                        {{ complaint.department }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        SEVERITY
+                    </span>
+
+                    <strong>
+                        {{ complaint.severity_score }}/100
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        CURRENT STATUS
+                    </span>
+
+                    <strong>
+                        {{ complaint.get_status_display }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TIMELINE -->
+
+        <div class="tracking-card">
+
+            <span class="timeline-title">
+                COMPLAINT PROGRESS
+            </span>
+
+
+            <div class="timeline">
+
+
+                <!-- SUBMITTED -->
+
+                <div class="timeline-item completed">
+
+                    <div class="timeline-marker">
+                        ✓
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <strong>
+                            Complaint Submitted
+                        </strong>
+
+                        <p>
+                            Your complaint was received by CivicShield.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AI -->
+
+                <div class="timeline-item completed">
+
+                    <div class="timeline-marker">
+                        ✓
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <strong>
+                            AI Analysis Completed
+                        </strong>
+
+                        <p>
+                            CivicShield analyzed your complaint.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ASSIGNED -->
+
+                <div class="timeline-item completed">
+
+                    <div class="timeline-marker">
+                        ✓
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <strong>
+                            Assigned to Department
+                        </strong>
+
+                        <p>
+                            {{ complaint.department }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- IN PROGRESS -->
+
+                <div
+                    class="timeline-item
+                    {% if complaint.status == 'in_progress' or complaint.status == 'resolved' %}
+                        completed
+                    {% endif %}"
+                >
+
+                    <div class="timeline-marker">
+
+                        {% if complaint.status == "in_progress" or complaint.status == "resolved" %}
+                            ✓
+                        {% else %}
+                            4
+                        {% endif %}
+
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <strong>
+                            In Progress
+                        </strong>
+
+                        <p>
+                            {% if complaint.status == "in_progress" or complaint.status == "resolved" %}
+                                Authority is processing your complaint.
+                            {% else %}
+                                Waiting for authority action.
+                            {% endif %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RESOLVED -->
+
+                <div
+                    class="timeline-item
+                    {% if complaint.status == 'resolved' %}
+                        completed
+                    {% endif %}"
+                >
+
+                    <div class="timeline-marker">
+
+                        {% if complaint.status == "resolved" %}
+                            ✓
+                        {% else %}
+                            5
+                        {% endif %}
+
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <strong>
+                            Resolved
+                        </strong>
+
+                        <p>
+
+                            {% if complaint.status == "resolved" %}
+
+                                Your complaint has been resolved.
+
+                            {% else %}
+
+                                Resolution pending.
+
+                            {% endif %}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="tracking-card">
+
+            <span class="timeline-title">
+                YOUR COMPLAINT
+            </span>
+
+            <p class="tracking-description">
+                {{ complaint.description }}
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

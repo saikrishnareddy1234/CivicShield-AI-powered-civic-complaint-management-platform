@@ -1,0 +1,218 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Complaint Submitted | CivicShield</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<main class="success-container">
+
+    <div class="success-card">
+
+        <!-- Success Icon -->
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <span class="success-label">
+            COMPLAINT SUBMITTED
+        </span>
+
+        <h1>
+            Thank you for helping
+            <strong>your city.</strong>
+        </h1>
+
+        <p>
+            Your complaint has been successfully
+            registered with CivicShield.
+        </p>
+
+
+        <!-- Complaint ID -->
+        <div class="complaint-id">
+
+            <small>
+                COMPLAINT ID
+            </small>
+
+            <strong>
+                {{ complaint.complaint_id }}
+            </strong>
+
+        </div>
+
+
+        <!-- Basic Complaint Details -->
+        <div class="success-details">
+
+            <div>
+                <span>
+                    Category
+                </span>
+
+                <strong>
+                    {{ complaint.get_category_display }}
+                </strong>
+            </div>
+
+
+            <div>
+                <span>
+                    Status
+                </span>
+
+                <strong>
+                    {{ complaint.get_status_display }}
+                </strong>
+            </div>
+
+
+            <div>
+                <span>
+                    Priority
+                </span>
+
+                <strong>
+                    {{ complaint.get_priority_display }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- AI ANALYSIS -->
+        <div class="ai-result">
+
+            <div class="ai-header">
+                🤖 AI CIVIC ANALYSIS
+            </div>
+
+
+            <div class="ai-grid">
+
+                <div>
+
+                    <span>
+                        Detected Category
+                    </span>
+
+                    <strong>
+                        {{ complaint.get_category_display }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        AI Priority
+                    </span>
+
+                    <strong>
+                        {{ complaint.get_priority_display }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Department
+                    </span>
+
+                    <strong>
+                        {{ complaint.department|default:"Not assigned" }}
+                    </strong>
+
+                </div>
+                <div>
+
+                <span>
+                    Severity Score
+                </span>
+
+                <strong>
+                    {{ complaint.severity_score }}/100
+                </strong>
+
+            </div>
+
+            </div>
+
+
+            <!-- AI Reason -->
+            <div class="ai-reason">
+
+                <span>
+                    AI Reasoning
+                </span>
+
+                <p>
+                    {{ ai_reason|default:"AI analysis is not available." }}
+                </p>
+
+            </div>
+
+        </div>
+{% if ai_confidence %}
+<div class="ai-confidence">
+
+    <span>
+        AI CONFIDENCE
+    </span>
+
+    <strong>
+        {{ ai_confidence }}%
+    </strong>
+
+</div>
+{% endif %}
+
+
+{% if visual_evidence %}
+<div class="ai-evidence">
+
+    <span>
+        👁️ VISUAL EVIDENCE
+    </span>
+
+    <p>
+        {{ visual_evidence }}
+    </p>
+
+</div>
+{% endif %}
+
+        <!-- Back Button -->
+        <a href="/"
+           class="primary-button">
+
+            ← Back to CivicShield
+
+        </a>
+
+    </div>
+
+</main>
+
+
+</body>
+
+</html>
