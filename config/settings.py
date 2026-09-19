@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['.onrender.com','127.0.0.1']
 CSRF_TRUSTED_ORIGINS = [
-    "https://civicshield-ai-powered-civic-complaint.onrender.com",
+    "https://civicshield-ai-powered-civic-complaint-c3e8.onrender.com",
 ]
 
 
